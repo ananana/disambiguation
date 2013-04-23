@@ -138,6 +138,9 @@ public class InterestCorporaTests implements Runnable {
         String filesAsString = "";
         try {
           //  lineFile = new BufferedReader(new FileReader("testfiles\\" + fileName));
+            /*
+             * TODO: this won't work in Windows
+             */
             interestFile = new BufferedReader(new FileReader("testfiles/" + fileName));
 
         String textLine;
