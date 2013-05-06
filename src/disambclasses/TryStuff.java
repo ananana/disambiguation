@@ -27,12 +27,12 @@ public class TryStuff {
         test.setWithReportFile(false);
         
         test.setOnlyUseSamePos(false);
-        test.testLineCorpusFromAll();
+        test.testCorpusFromAll();
 
         System.out.println(test.getAllResults());
 
         test.setOnlyUseSamePos(true);
-        test.testLineCorpusFromAll();
+        test.testCorpusFromAll();
 
         System.out.println(test.getAllResults());
 
@@ -47,7 +47,7 @@ public class TryStuff {
         System.out.println(file);
 
         test.setOnlyUseSamePos(true);
-        test.testInterestCorpusFromFile(file);
+        test.testCorpusFromFile(file);
 
         System.out.println(test.getOneResult());
 
@@ -239,7 +239,7 @@ public class TryStuff {
     public void printfile()
     {
         ServeCorporaTests serve = new ServeCorporaTests();
-        String[] text = serve.parseOriginalServe(serve.getAsString("serve6"));
+        String[] text = serve.parseOriginal(serve.getAsString("serve6"));
         for (String s : text)
             System.out.println(s + "\n");
     }
