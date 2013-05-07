@@ -6,13 +6,10 @@ package disambclasses;
 
 import edu.smu.tspell.wordnet.*;
 import java.util.Arrays;
-import java.util.Vector;
 import java.io.*;
 import java.util.ArrayList;
 
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Locale;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,11 +42,11 @@ public class Disambiguate {
      */
     private Synset sense;
     /**
-     * vector care contine numarul synseturilor candidate pentru sensul cuvantului tinta \
+     * ArrayList care contine numarul synseturilor candidate pentru sensul cuvantului tinta \
      * (sensurilor din wordnet le este asociat un numar in sensesnrs) \
      * in cazul cel mai general - numerele corespunzatoare tuturor sensurilor din wordnet asociate cuvantului tinta
      */
-    private Vector<Integer>[] candidateSynsetNrs;
+    private ArrayList<Integer>[] candidateSynsetNrs;
     /**
      * numarul din candidateSynsetNrs al sensului (grupului de sensuri) gasit la dezambiguizare
      */
@@ -57,7 +54,7 @@ public class Disambiguate {
     /**
      * asociaza fiecarui synset din care face parte cuvantul tinta un numar de ordine
      */
-    private Hashtable sensesNrs;
+    private HashMap sensesNrs;
     /**
      * o instanta a bazei de date wordnet,
      * care va fi folosita in functiile care acceseaza baza de date
@@ -144,9 +141,9 @@ public class Disambiguate {
         {
 
             mapSynsetsToSenses();
-            candidateSynsetNrs = new Vector[sensesNrs.size()]; 
+            candidateSynsetNrs = new ArrayList[sensesNrs.size()]; 
             for (int i = 0; i < sensesNrs.size(); i++) {
-                candidateSynsetNrs[i] = new Vector<Integer>();
+                candidateSynsetNrs[i] = new ArrayList<Integer>();
                 candidateSynsetNrs[i].add(i + 1);
             }
 
@@ -166,10 +163,10 @@ public class Disambiguate {
      * @param surroundingText contextul in care apare cuvantul tinta - va fi folosit pentru a crea tabloul care contine cuvintele din fereastra
      * @param windowSize dimensiunea ferestrei
      * @param candidateSenses sensuri candidate pentru cuvantul cheie, de obicei o submultime a tuturor sensurilor posibile
-     *      - tablou in care fiecare element este un vector care contine numerele de ordine pentru fiecare din sensurile din wordnet asociate uneia dintre clasele in care va fi incadrat cuvantul tinta (reprezentand sensuri posibile)
+     *      - tablou in care fiecare element este un ArrayList care contine numerele de ordine pentru fiecare din sensurile din wordnet asociate uneia dintre clasele in care va fi incadrat cuvantul tinta (reprezentand sensuri posibile)
      * @see setParameters(String targetWord, SynsetType pos, String surroundingText, int windowSize)
      */
-    public void setParameters(String targetWord, SynsetType pos, String surroundingText, int windowSize, Vector<Integer>[] candidateSenses) {
+    public void setParameters(String targetWord, SynsetType pos, String surroundingText, int windowSize, ArrayList<Integer>[] candidateSenses) {
         setParameters(targetWord, pos, surroundingText, windowSize);
         candidateSynsetNrs = candidateSenses;
         mapSynsetsToSenses();
@@ -183,7 +180,7 @@ public class Disambiguate {
      * @see sensesNrs
      */
     private void mapSynsetsToSenses() {
-        sensesNrs = new Hashtable();
+        sensesNrs = new HashMap();
         Synset[] senses, senses1, senses2;
         if (pos == SynsetType.ADJECTIVE || pos == SynsetType.ADJECTIVE_SATELLITE) {
             senses1 = database.getSynsets(targetWord, SynsetType.ADJECTIVE, true);
@@ -551,18 +548,18 @@ public class Disambiguate {
     }
 
     /**
-     * construieste vectorul de sensuri candidate pentru cuvantul tinta
+     * construieste ArrayListul de sensuri candidate pentru cuvantul tinta
      * @param word cuvantul
      * @param pos partea de vorbire a acestuia
-     * @return un tablou de vectori de synseturi in care fiecare element este un vector de synseturi care reprezinta
+     * @return un tablou de ArrayListi de synseturi in care fiecare element este un ArrayList de synseturi care reprezinta
      *         sensuri din wordnet asociate unui sens posibil al cuvantului tinta, in conformitate cu
      *         sensurile candidate ale acestuia
      */
-    private Vector[] candidates(String word, SynsetType pos) //calculeaza intersectia intre sensurile candidate si sensurile cuvantului la care sunt
+    private ArrayList[] candidates(String word, SynsetType pos) //calculeaza intersectia intre sensurile candidate si sensurile cuvantului la care sunt
     {
-        Vector<Synset>[] candidateSynsets = new Vector[candidateSynsetNrs.length];
+        ArrayList<Synset>[] candidateSynsets = new ArrayList[candidateSynsetNrs.length];
         for (int i = 0; i < candidateSynsets.length; i++) {
-            candidateSynsets[i] = new Vector<Synset>();
+            candidateSynsets[i] = new ArrayList<Synset>();
         }
 
         //aici  tratez separat daca e adjectiv
@@ -614,7 +611,7 @@ public class Disambiguate {
         
         //daca nu il gasesc il caut si printre hipernime
         boolean empty = true;
-        for (Vector<Synset> candidate : candidateSynsets) {
+        for (ArrayList<Synset> candidate : candidateSynsets) {
             if (candidate.size() != 0) {
                 empty = false;
             }
@@ -995,12 +992,12 @@ public class Disambiguate {
             return null;
         }
         
-        Vector<Synset>[] candidateSynsets = candidates(targetWord, pos); 
+        ArrayList<Synset>[] candidateSynsets = candidates(targetWord, pos); 
 
 
         float[] senseScores = new float[candidateSynsets.length];
 
-        Vector<Integer> bestScoreNrs = new Vector<Integer>();
+        ArrayList<Integer> bestScoreNrs = new ArrayList<Integer>();
         Synset bestScoreS = null;
 
         boolean anyCandidates = true;
@@ -1034,7 +1031,7 @@ public class Disambiguate {
                     for (String windowWord : windowWords) {
                       
                         for (Synset pairSense : database.getSynsets(windowWord)) {
-                            senseScores[i] += scoreAll(candidateSynsets[i].elementAt(j), targetWord, pairSense, windowWord, targetLength);
+                            senseScores[i] += scoreAll(candidateSynsets[i].get(j), targetWord, pairSense, windowWord, targetLength);
                         }
 
 
@@ -1064,7 +1061,7 @@ public class Disambiguate {
                     if (k != 0) {
                         writeToFile(" / ", true);
                     }
-                    writeToFile(candidateSynsets[i].elementAt(k).getDefinition(), true);
+                    writeToFile(candidateSynsets[i].get(k).getDefinition(), true);
 
                 }
             }
@@ -1072,21 +1069,21 @@ public class Disambiguate {
 
 
             if (bestScoreNrs.size() == 1) {   
-                senseNr = bestScoreNrs.elementAt(0);
-                bestScoreS = candidateSynsets[senseNr].elementAt(0); 
+                senseNr = bestScoreNrs.get(0);
+                bestScoreS = candidateSynsets[senseNr].get(0); 
             } else {
-                int mostUsedIndexi = bestScoreNrs.elementAt(0);
+                int mostUsedIndexi = bestScoreNrs.get(0);
                 int mostUsedIndexj = 0; 
                 //initializam mostUsedIndexj cu primul sens candidat care nu e vid
 
 
                 for (int i = 0; i < bestScoreNrs.size(); i++) {
-                    for (int j = 0; j < candidateSynsets[bestScoreNrs.elementAt(i)].size(); j++) {
+                    for (int j = 0; j < candidateSynsets[bestScoreNrs.get(i)].size(); j++) {
                         try {
                            
-                            if ((candidateSynsets[bestScoreNrs.elementAt(i)].elementAt(j).getTagCount(targetWord)) >
-                                    candidateSynsets[mostUsedIndexi].elementAt(mostUsedIndexj).getTagCount(targetWord)) {
-                                mostUsedIndexi = bestScoreNrs.elementAt(i);
+                            if ((candidateSynsets[bestScoreNrs.get(i)].get(j).getTagCount(targetWord)) >
+                                    candidateSynsets[mostUsedIndexi].get(mostUsedIndexj).getTagCount(targetWord)) {
+                                mostUsedIndexi = bestScoreNrs.get(i);
                                 mostUsedIndexj = j;
                             }
                         } catch (WordNetException ex) {
@@ -1095,7 +1092,7 @@ public class Disambiguate {
                     }
 
                 }
-                bestScoreS = candidateSynsets[mostUsedIndexi].elementAt(mostUsedIndexj);  
+                bestScoreS = candidateSynsets[mostUsedIndexi].get(mostUsedIndexj);  
                 senseNr = mostUsedIndexi;
             }
 

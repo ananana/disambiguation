@@ -6,13 +6,8 @@
 package testcorpora;
 
 import edu.smu.tspell.wordnet.SynsetType;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Set;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,9 +15,9 @@ import java.util.Vector;
  */
 public class HardCorporaTests extends CorporaTests {
 
-    private static Vector<Integer> difficult;
-    private static Vector<Integer> notsoft1;
-    private static Vector<Integer> notsoft2;
+    private static ArrayList<Integer> difficult;
+    private static ArrayList<Integer> notsoft1;
+    private static ArrayList<Integer> notsoft2;
 
 
     HardCorporaTests()
@@ -41,21 +36,21 @@ public class HardCorporaTests extends CorporaTests {
         String[] hardfiles = {"hard1", "hard2", "hard3"};
         files = hardfiles;
         
-        difficult = new Vector<Integer>();
-        notsoft1 = new Vector<Integer>();
-        notsoft2 = new Vector<Integer>();
+        difficult = new ArrayList<Integer>();
+        notsoft1 = new ArrayList<Integer>();
+        notsoft2 = new ArrayList<Integer>();
 
         difficult.add(1);
         notsoft1.add(2); notsoft1.add(8);
         notsoft2.add(3); notsoft2.add(12);
 
 
-        filesToSenseSets = new Hashtable();
+        filesToSenseSets = new HashMap();
         filesToSenseSets.put("hard1", difficult);
         filesToSenseSets.put("hard2", notsoft1);
         filesToSenseSets.put("hard3", notsoft2);
        
-        filesToNrs = new Hashtable();
+        filesToNrs = new HashMap();
         filesToNrs.put("hard1", 0);
         filesToNrs.put("hard2", 1);
         filesToNrs.put("hard3", 2);

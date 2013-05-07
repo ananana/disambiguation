@@ -10,7 +10,7 @@ package testcorpora;
  */
 public interface TestCorpus extends Runnable {
     
-   // TODO: add description of funtionality in comments; is it ok to extend Runnable?
+   // TODO: is it ok to extend Runnable?
     
    /*
      * return file contents as a String

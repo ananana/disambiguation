@@ -5,15 +5,9 @@
 
 package testcorpora;
 
-import testcorpora.CorporaTests;
 import edu.smu.tspell.wordnet.SynsetType;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Set;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,10 +16,10 @@ import java.util.Vector;
 public class ServeCorporaTests extends CorporaTests {
 
  
-    private static Vector<Integer> food;
-    private static Vector<Integer> office;
-    private static Vector<Integer> function;
-    private static Vector<Integer> provide;
+    private static ArrayList<Integer> food;
+    private static ArrayList<Integer> office;
+    private static ArrayList<Integer> function;
+    private static ArrayList<Integer> provide;
 
     
     ServeCorporaTests()
@@ -47,10 +41,10 @@ public class ServeCorporaTests extends CorporaTests {
         String[] servefiles = {"serve10", "serve12", "serve2", "serve6"};
         files = servefiles;
         
-        food = new Vector<Integer>();
-        office = new Vector<Integer>();
-        function = new Vector<Integer>();
-        provide = new Vector<Integer>();
+        food = new ArrayList<Integer>();
+        office = new ArrayList<Integer>();
+        function = new ArrayList<Integer>();
+        provide = new ArrayList<Integer>();
 
         food.add(5); food.add(6);
         office.add(2);
@@ -58,13 +52,13 @@ public class ServeCorporaTests extends CorporaTests {
         provide.add(4);
 
 
-        filesToSenseSets = new Hashtable();
+        filesToSenseSets = new HashMap();
         filesToSenseSets.put("serve10", food);
         filesToSenseSets.put("serve12", office);
         filesToSenseSets.put("serve2", function);
         filesToSenseSets.put("serve6", provide);
 
-        filesToNrs = new Hashtable();
+        filesToNrs = new HashMap();
         filesToNrs.put("serve10", 0);
         filesToNrs.put("serve12", 1);
         filesToNrs.put("serve2", 2);

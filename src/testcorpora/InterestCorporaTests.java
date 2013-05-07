@@ -5,13 +5,8 @@
 package testcorpora;
 
 import edu.smu.tspell.wordnet.SynsetType;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Set;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,12 +23,12 @@ import java.util.regex.Pattern;
 
 public class InterestCorporaTests extends CorporaTests {
 
-    private static Vector<Integer> interest1;
-    private static Vector<Integer> interest2;
-    private static Vector<Integer> interest3;
-    private static Vector<Integer> interest4;
-    private static Vector<Integer> interest5;
-    private static Vector<Integer> interest6;
+    private static ArrayList<Integer> interest1;
+    private static ArrayList<Integer> interest2;
+    private static ArrayList<Integer> interest3;
+    private static ArrayList<Integer> interest4;
+    private static ArrayList<Integer> interest5;
+    private static ArrayList<Integer> interest6;
 
 
     InterestCorporaTests()
@@ -52,12 +47,12 @@ public class InterestCorporaTests extends CorporaTests {
         String[] interestfiles = {"interest1", "interest2", "interest3", "interest4", "interest5", "interest6"};
         files = interestfiles;
         
-        interest1 = new Vector<Integer>();
-        interest2 = new Vector<Integer>();
-        interest3 = new Vector<Integer>();
-        interest4 = new Vector<Integer>();
-        interest5 = new Vector<Integer>();
-        interest6 = new Vector<Integer>();
+        interest1 = new ArrayList<Integer>();
+        interest2 = new ArrayList<Integer>();
+        interest3 = new ArrayList<Integer>();
+        interest4 = new ArrayList<Integer>();
+        interest5 = new ArrayList<Integer>();
+        interest6 = new ArrayList<Integer>();
 
         interest1.add(1);
         interest2.add(3);
@@ -67,7 +62,7 @@ public class InterestCorporaTests extends CorporaTests {
         interest6.add(4);
 
 
-        filesToSenseSets = new Hashtable();
+        filesToSenseSets = new HashMap();
         filesToSenseSets.put("interest1", interest1);
         filesToSenseSets.put("interest2", interest2);
         filesToSenseSets.put("interest3", interest3);
@@ -75,7 +70,7 @@ public class InterestCorporaTests extends CorporaTests {
         filesToSenseSets.put("interest5", interest5);
         filesToSenseSets.put("interest6", interest6);
        
-        filesToNrs = new Hashtable();
+        filesToNrs = new HashMap();
         filesToNrs.put("interest1", 0);
         filesToNrs.put("interest2", 1);
         filesToNrs.put("interest3", 2);
@@ -107,7 +102,7 @@ public class InterestCorporaTests extends CorporaTests {
         Pattern p = Pattern.compile(patternStr);
         Matcher m = p.matcher(text);
         
-        Vector<String> contextsv = new Vector<String>();
+        ArrayList<String> contextsv = new ArrayList<String>();
         
         while (m.find()) {
             String context = m.group(0);

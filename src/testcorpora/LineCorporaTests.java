@@ -4,14 +4,9 @@
  */
 package testcorpora;
 
-import testcorpora.CorporaTests;
 import edu.smu.tspell.wordnet.SynsetType;
-import java.io.*;
-import java.util.Formatter;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Set;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 
@@ -25,12 +20,12 @@ import java.util.Vector;
 
 public class LineCorporaTests extends CorporaTests{
 
-    private static Vector<Integer> product;
-    private static Vector<Integer> text;
-    private static Vector<Integer> phone;
-    private static Vector<Integer> people;
-    private static Vector<Integer> division;
-    private static Vector<Integer> cord;
+    private static ArrayList<Integer> product;
+    private static ArrayList<Integer> text;
+    private static ArrayList<Integer> phone;
+    private static ArrayList<Integer> people;
+    private static ArrayList<Integer> division;
+    private static ArrayList<Integer> cord;
 
 
     LineCorporaTests()
@@ -54,12 +49,12 @@ public class LineCorporaTests extends CorporaTests{
         String[] linefiles = {"cord2", "division2", "formation2", "phone2", "product2", "text2"};
         files = linefiles;
 
-        product = new Vector<Integer>();
-        text = new Vector<Integer>();
-        phone = new Vector<Integer>();
-        people = new Vector<Integer>();
-        division = new Vector<Integer>();
-        cord = new Vector<Integer>();
+        product = new ArrayList<Integer>();
+        text = new ArrayList<Integer>();
+        phone = new ArrayList<Integer>();
+        people = new ArrayList<Integer>();
+        division = new ArrayList<Integer>();
+        cord = new ArrayList<Integer>();
 
         product.add(22);
         text.add(28); text.add(5); text.add(27);
@@ -69,7 +64,7 @@ public class LineCorporaTests extends CorporaTests{
         cord.add(18);
         
         
-        filesToSenseSets = new Hashtable();
+        filesToSenseSets = new HashMap();
         filesToSenseSets.put("cord2", cord);
         filesToSenseSets.put("division2", division);
         filesToSenseSets.put("formation2", people);
@@ -77,7 +72,7 @@ public class LineCorporaTests extends CorporaTests{
         filesToSenseSets.put("text2", text);
         filesToSenseSets.put("product2", product);
 
-        filesToNrs = new Hashtable();
+        filesToNrs = new HashMap();
         filesToNrs.put("cord2", 0);
         filesToNrs.put("division2", 1);
         filesToNrs.put("formation2", 2);

@@ -7,11 +7,8 @@ package testcorpora;
 import disambclasses.Disambiguate;
 import edu.smu.tspell.wordnet.SynsetType;
 import java.io.*;
-import java.util.Formatter;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Set;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  *
@@ -36,10 +33,10 @@ public abstract class CorporaTests implements TestCorpus {
     protected boolean normalize;
     protected int window;
     protected boolean withReportFile;
-    protected Hashtable filesToSenseSets;
-    protected Hashtable filesToNrs;
+    protected HashMap filesToSenseSets;
+    protected HashMap filesToNrs;
 
-    protected Vector<Integer>[] candidateGroups;
+    protected ArrayList<Integer>[] candidateGroups;
 
     protected int totalfor1, corectefor1;
     protected int[] myResults;
@@ -73,10 +70,10 @@ public abstract class CorporaTests implements TestCorpus {
     protected void initializeStuff()
     {
         window = 5;
-        candidateGroups = new Vector[files.length];
+        candidateGroups = new ArrayList[files.length];
         for (int i = 0; i < files.length; i++)
         {
-            candidateGroups[i] = (Vector<Integer>)filesToSenseSets.get(files[i]);
+            candidateGroups[i] = (ArrayList<Integer>)filesToSenseSets.get(files[i]);
         }
 
         correctResultsPerFile = new int[files.length];
@@ -136,7 +133,7 @@ public abstract class CorporaTests implements TestCorpus {
         String[] contexts = parseOriginal(getAsString(file));
         totalfor1 = 0; corectefor1 = 0;
         int senseNr = (Integer)filesToNrs.get(file);
-        Vector senseSet = (Vector)filesToSenseSets.get(file);
+        ArrayList senseSet = (ArrayList)filesToSenseSets.get(file);
      
         String raport; String diverse;
         
@@ -168,7 +165,6 @@ public abstract class CorporaTests implements TestCorpus {
                 break;
             }
 
-
             disambiguator.setParameters(targetWord, synsetType, contexts[i], window, candidateGroups);
             disambiguator.disambiguate();
 
@@ -196,7 +192,7 @@ public abstract class CorporaTests implements TestCorpus {
 
     public void reset()
     {
-        //reseet result vectors && confusion matrix
+        //reseet result ArrayLists && confusion matrix
         for (int i = 0; i < files.length; i++)
             correctResultsPerFile[i] = totalOccurences[i] = myResults[i] = 0;
         for (int i = 0; i < files.length; i++)
