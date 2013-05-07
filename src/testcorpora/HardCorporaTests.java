@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package disambclasses;
+package testcorpora;
 
 import edu.smu.tspell.wordnet.SynsetType;
 import java.io.BufferedReader;
@@ -18,38 +18,23 @@ import java.util.Vector;
  *
  * @author ana
  */
-public class HardCorporaTests extends TestCorpora {
+public class HardCorporaTests extends CorporaTests {
 
-    private static boolean onlyUseSamePos;
-    private boolean normalize;
-    private static int window;
-    private static boolean withReportFile = false;
     private static Vector<Integer> difficult;
     private static Vector<Integer> notsoft1;
     private static Vector<Integer> notsoft2;
-    private static Hashtable filesToSenseSets;
-    private static Hashtable filesToNrs;
-
-    private static Vector<Integer>[] candidateGroups;
-
-    private static int totalfor1, corectefor1;
-    private static int[] myResults;
-    private static int[] correctResultsPerFile;
-    private static int[] totalOccurences;
-    private static float[] recall;
-    private static float[] precision;
-    private static int[][] confusionMatrix;
 
 
-    @SuppressWarnings("empty-statement")
-    public HardCorporaTests()
+    HardCorporaTests()
     {
-        super();
+        super(CorpusType.HARD);
+        specificStructures();
+        initializeStuff();
     }
     
-    protected void specificStructures() {
+    protected final void specificStructures() {
         targetWord = "hard";
-        type = SynsetType.ADJECTIVE;
+        synsetType = SynsetType.ADJECTIVE;
         
         int[] hardsenses = {1, 2, 8, 3, 12};
         senses = hardsenses;

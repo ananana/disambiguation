@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import testcorpora.*;
 
 /*
  * To change this template, choose Tools | Templates
@@ -25,7 +26,7 @@ import java.util.logging.Logger;
  */
 public class TestAllMenu extends javax.swing.JFrame {
 
-    static disambclasses.InterestCorporaTests test = new disambclasses.InterestCorporaTests();
+    static TestCorpus test = TestCorporaFactory.getTestingInstance(CorpusType.INTEREST);
     static Thread t;
     /** Creates new form TestAllMenu */
     public TestAllMenu() {
@@ -41,8 +42,8 @@ public class TestAllMenu extends javax.swing.JFrame {
        // test.setWindow(7);
         test.setWithReportFile(false);
 
-        //test.setOnlyUseSamePos(false);
-        //test.setNormalize(false);
+        test.setOnlyUseSamePos(true);
+        test.setNormalize(true);
 
         //sa prind filenotfoundexception? dar mai incolo
  

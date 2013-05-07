@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package disambclasses;
+package testcorpora;
 
+import testcorpora.CorporaTests;
 import edu.smu.tspell.wordnet.SynsetType;
 import java.io.*;
 import java.util.Formatter;
@@ -22,29 +23,30 @@ import java.util.Vector;
 // TODO: make them singleton?
 
 
-public class LineCorporaTests extends TestCorpora{
+public class LineCorporaTests extends CorporaTests{
 
-    protected static Vector<Integer> product;
-    protected static Vector<Integer> text;
-    protected static Vector<Integer> phone;
-    protected static Vector<Integer> people;
-    protected static Vector<Integer> division;
-    protected static Vector<Integer> cord;
+    private static Vector<Integer> product;
+    private static Vector<Integer> text;
+    private static Vector<Integer> phone;
+    private static Vector<Integer> people;
+    private static Vector<Integer> division;
+    private static Vector<Integer> cord;
 
 
-    @SuppressWarnings("empty-statement")
-    public LineCorporaTests()
+    LineCorporaTests()
     {
-        super();
+        super(CorpusType.LINE);
+        specificStructures();
+        initializeStuff();
     }
     
     @Override
-    protected void specificStructures() {
+    protected final void specificStructures() {
         
         targetWord = "line";
         String[] altline = {"lines", "lined"};
         alternativeForms = altline;
-        type = SynsetType.NOUN;
+        synsetType = SynsetType.NOUN;
         
         // ? how optimal is this? does it create the arrays twice?
         int[] linesenses = {22, 28, 5, 27, 15, 3, 1, 29, 18};

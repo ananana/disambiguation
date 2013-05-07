@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package disambclasses;
+package testcorpora;
 
+import disambclasses.Disambiguate;
 import edu.smu.tspell.wordnet.SynsetType;
 import java.io.*;
 import java.util.Formatter;
@@ -16,94 +17,62 @@ import java.util.Vector;
  *
  * @author ana
  */
-public abstract class TestCorpora implements Runnable {
+
+public abstract class CorporaTests implements TestCorpus {
     
+    protected CorpusType corpusType = null;
     
     // TODO: make these compulsory to implement (not leave null) somehow? - abstract fields?
-    protected static String targetWord;
-    protected static String alternativeForms[];
-    protected static SynsetType type;
     
-    protected static int[] senses;
-    protected static String[] files;
+    // TODO: make them static? make singleton subclasses - how?
+    protected String targetWord;
+    protected String alternativeForms[] = null;
+    protected SynsetType synsetType;
+    
+    protected int[] senses;
+    protected String[] files;
    
     protected boolean onlyUseSamePos;
     protected boolean normalize;
-    protected static int window;
+    protected int window;
     protected boolean withReportFile;
-    protected static Hashtable filesToSenseSets;
-    protected static Hashtable filesToNrs;
+    protected Hashtable filesToSenseSets;
+    protected Hashtable filesToNrs;
 
-    protected static Vector<Integer>[] candidateGroups;
+    protected Vector<Integer>[] candidateGroups;
 
-    protected static int totalfor1, corectefor1;
-    protected static int[] myResults;
-    protected static int[] correctResultsPerFile;
-    protected static int[] totalOccurences;
-    protected static float[] recall;
-    protected static float[] precision;
-    protected static int[][] confusionMatrix;
-
-    public static boolean stopped = false;
-    public static boolean paused = false;
-
+    protected int totalfor1, corectefor1;
+    protected int[] myResults;
+    protected int[] correctResultsPerFile;
+    protected int[] totalOccurences;
+    protected float[] recall;
+    protected float[] precision;
+    protected int[][] confusionMatrix;
+    
     protected int contextNr;
     protected int fileNr;
 
-    @SuppressWarnings("empty-statement")
-    protected TestCorpora()
+    public boolean stopped = false;
+    public boolean paused = false;
+    
+
+    protected CorporaTests(CorpusType type)
     {
-        specificStructures();
-        initializeStuff();
+        corpusType = type;
     }
     
-    // abstract method
-    // will contain declaration and initialization to structures specific to each subclass
-    // (and will be implemented in subclasses)
+    /**
+     * 
+     * abstract method
+     * will contain declaration and initialization to structures specific to each subclass
+     * (and will be implemented in subclasses)
+     * */
     abstract protected void specificStructures();
     
+    // must be called after specificStructures() (initializez them)
     protected void initializeStuff()
     {
         window = 5;
-//        product = new Vector<Integer>();
-//        text = new Vector<Integer>();
-//        phone = new Vector<Integer>();
-//        people = new Vector<Integer>();
-//        division = new Vector<Integer>();
-//        cord = new Vector<Integer>();
-//
-//        product.add(22);
-//        text.add(28); text.add(5); text.add(27);
-//        phone.add(15);
-//        people.add(1); people.add(3);
-//        division.add(29);
-//        cord.add(18);
-
-//        filesToSenseSets = new Hashtable();
-//        filesToSenseSets.put("cord2", cord);
-//        filesToSenseSets.put("division2", division);
-//        filesToSenseSets.put("formation2", people);
-//        filesToSenseSets.put("phone2", phone);
-//        filesToSenseSets.put("text2", text);
-//        filesToSenseSets.put("product2", product);
-//
-//        filesToNrs = new Hashtable();
-//        filesToNrs.put("cord2", 0);
-//        filesToNrs.put("division2", 1);
-//        filesToNrs.put("formation2", 2);
-//        filesToNrs.put("phone2", 3);
-//        filesToNrs.put("product2", 4);
-//        filesToNrs.put("text2", 5);
-
-        /*
-         * 0 - cord
-         * 1 - division
-         * 2 - formation
-         * 3 - phone
-         * 4 - product
-         * 5 - text
-         */
-
         candidateGroups = new Vector[files.length];
         for (int i = 0; i < files.length; i++)
         {
@@ -200,7 +169,7 @@ public abstract class TestCorpora implements Runnable {
             }
 
 
-            disambiguator.setParameters(targetWord, type, contexts[i], window, candidateGroups);
+            disambiguator.setParameters(targetWord, synsetType, contexts[i], window, candidateGroups);
             disambiguator.disambiguate();
 
             if (disambiguator.getSenseDef() != null)
@@ -317,7 +286,7 @@ public abstract class TestCorpora implements Runnable {
        return results;
    }
 
-   protected String confusionMatrixString()
+   private String confusionMatrixString()
    {
        String matrixs = String.format("%1$10s", "");
        for (int i = -1; i < confusionMatrix.length; i++)

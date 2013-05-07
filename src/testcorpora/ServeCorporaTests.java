@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package disambclasses;
+package testcorpora;
 
+import testcorpora.CorporaTests;
 import edu.smu.tspell.wordnet.SynsetType;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -18,29 +19,28 @@ import java.util.Vector;
  *
  * @author ana
  */
-public class ServeCorporaTests extends TestCorpora {
+public class ServeCorporaTests extends CorporaTests {
 
  
-    protected static Vector<Integer> food;
-    protected static Vector<Integer> office;
-    protected static Vector<Integer> function;
-    protected static Vector<Integer> provide;
-    protected static Hashtable filesToSenseSets;
-    protected static Hashtable filesToNrs;
+    private static Vector<Integer> food;
+    private static Vector<Integer> office;
+    private static Vector<Integer> function;
+    private static Vector<Integer> provide;
 
-
-    @SuppressWarnings("empty-statement")
-    public ServeCorporaTests()
+    
+    ServeCorporaTests()
     {
-        super();
+        super(CorpusType.SERVE);
+        specificStructures();
+        initializeStuff();
     }
     
-    protected void specificStructures() {
+    protected final void specificStructures() {
         
         targetWord = "serve";
         String[] altserve = {"service", "services"};
         alternativeForms = altserve;
-        type = SynsetType.VERB;
+        synsetType = SynsetType.VERB;
         
         int[] servesenses = {1, 2, 4, 5, 6};
         senses = servesenses;

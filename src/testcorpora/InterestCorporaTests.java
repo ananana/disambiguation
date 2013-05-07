@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package disambclasses;
+package testcorpora;
 
 import edu.smu.tspell.wordnet.SynsetType;
 import java.io.BufferedReader;
@@ -26,25 +26,26 @@ import java.util.regex.Pattern;
  */
 
 
-public class InterestCorporaTests extends TestCorpora {
+public class InterestCorporaTests extends CorporaTests {
 
-    protected static Vector<Integer> interest1;
-    protected static Vector<Integer> interest2;
-    protected static Vector<Integer> interest3;
-    protected static Vector<Integer> interest4;
-    protected static Vector<Integer> interest5;
-    protected static Vector<Integer> interest6;
+    private static Vector<Integer> interest1;
+    private static Vector<Integer> interest2;
+    private static Vector<Integer> interest3;
+    private static Vector<Integer> interest4;
+    private static Vector<Integer> interest5;
+    private static Vector<Integer> interest6;
 
 
-    @SuppressWarnings("empty-statement")
-    public InterestCorporaTests()
+    InterestCorporaTests()
     {
-        super();
+        super(CorpusType.INTEREST);
+        specificStructures();
+        initializeStuff();
     }
     
-    protected void specificStructures() {
+    protected final void specificStructures() {
         targetWord = "interest";
-        type = SynsetType.NOUN;
+        synsetType = SynsetType.NOUN;
         
         int[] interestsenses = {1, 2, 3, 4, 5, 7};
         senses = interestsenses;

@@ -5,6 +5,9 @@
 
 package disambclasses;
 
+import testcorpora.LineCorporaTests;
+import testcorpora.ServeCorporaTests;
+import testcorpora.InterestCorporaTests;
 import edu.smu.tspell.wordnet.*;
 import java.io.*;
 import java.util.StringTokenizer;
@@ -12,6 +15,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import testcorpora.CorpusType;
+import testcorpora.TestCorporaFactory;
+import testcorpora.TestCorpus;
 
 /**
  *
@@ -22,7 +28,7 @@ public class TryStuff {
     public void testAllFiles()
     {
 
-        LineCorporaTests test = new LineCorporaTests();
+        TestCorpus test = TestCorporaFactory.getTestingInstance(CorpusType.LINE);
         test.setWindow(3);
         test.setWithReportFile(false);
         
@@ -41,7 +47,7 @@ public class TryStuff {
     public void testFile(String file)
     {
 
-        InterestCorporaTests test = new InterestCorporaTests();
+        TestCorpus test = TestCorporaFactory.getTestingInstance(CorpusType.INTEREST);
         test.setWindow(3);
         test.setWithReportFile(true);
         System.out.println(file);
@@ -199,7 +205,7 @@ public class TryStuff {
 
     public void printConfMatrix()
     {
-         LineCorporaTests test = new LineCorporaTests();
+         TestCorpus test = TestCorporaFactory.getTestingInstance(CorpusType.LINE);
        //System.out.println(test.confusionMatrixString());
     }
 
@@ -238,7 +244,7 @@ public class TryStuff {
 
     public void printfile()
     {
-        ServeCorporaTests serve = new ServeCorporaTests();
+        TestCorpus serve = TestCorporaFactory.getTestingInstance(CorpusType.SERVE);
         String[] text = serve.parseOriginal(serve.getAsString("serve6"));
         for (String s : text)
             System.out.println(s + "\n");
