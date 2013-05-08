@@ -25,9 +25,9 @@ public class DisambiguateMenu extends javax.swing.JFrame {
     public DisambiguateMenu() {
          String wnpath = "";
         if (System.getProperty("os.name").contains("Windows"))
-            wnpath = ".\\libs\\WordNet-3.0\\dict\\";
+            wnpath = ".\\libs_and_WordNet\\WordNet-3.0\\dict\\";
         else
-            wnpath = "./libs/WordNet-3.0/dict/";
+            wnpath = "./libs_and_WordNet/WordNet-3.0/dict/";
         System.setProperty("wordnet.database.dir", wnpath);
        // System.setProperty("wordnet.database.dir", ".\\libs\\WordNet-3.0\\dict\\");
       //  System.setProperty("wordnet.database.dir", "./libs/WordNet-3.0/dict/");
